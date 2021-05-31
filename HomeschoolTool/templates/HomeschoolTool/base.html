@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Soren's Schedule{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+    <style type="text/css">
+            pre {
+                background-color: #D8F0FF;
+                border: 1px solid #9BBBD5;
+                padding: 8px;
+            }
+    </style>
+</head>
+
+<body>
+    <h1>Soren's Schedule</h1>
+    <div id="content" name="content">
+	{% block content %}
+	{% endblock %}
+    </div>
+</body>
+</html>
