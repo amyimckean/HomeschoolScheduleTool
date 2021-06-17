@@ -1,9 +1,15 @@
 {% extends 'HomeschoolTool/base.html' %}
 {% load render_table from django_tables2 %}
+{% load static %}
 {% block title %}
-Home
+Schedule
 {% endblock %}
 
 {% block content %}
+<div class="content">
+    <div class="main-text">
+        <h1>Soren's Schedule</h1>
+    </div>
 {% render_table table %}
+</div>
 {% endblock %}

@@ -1,0 +1,93 @@
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+    }
+    .main{
+        top:0;
+        height:100%;
+        width:100%;
+        position: fixed;
+        width: 920px;
+        overflow: auto;
+    }
+    .header{
+        padding: 5px;
+        background-color: #232323;
+        color: #CFCFCF;
+        top:0;
+        margin-left:200px;
+        border-bottom: 1px solid #e0e4e8;
+    }
+    .content{
+        height:100%;
+        padding: 50;
+        margin-left:220px;
+        width: 600px;
+        justify-content: center;
+        align-items: center;
+    }
+    .standardH1Text{
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 50px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+        justify-content: center;
+    }
+    .standardH2Text {
+        color: #111;
+        font-family: 'Open Sans',
+        sans-serif;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 32px;
+        margin: 0 0 72px;
+        text-align: center;
+    }
+    .main-text {
+        height: 50px;
+        margin-left:200px;
+        display:block;
+    }
+    .sidenav {
+        height:100%;
+        width:200px;
+        position: fixed;
+        z-index:1;
+        top:0;
+        left:0;
+        border: 2px;
+        overflow-x: :hidden;
+        padding-top:20px;
+        background-color: #232323;
+    }
+    .sidenav li{
+        padding: 15px;
+        border-bottom: 1px solid #bdb8d7;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .sidenav li a {
+        font-size:25px;
+        display:block;
+        color: #CFCFCF;
+    }
+    .sidenav h2 {
+        text-transform: uppercase;
+        margin-left:20px;
+        margin-bottom: 30px;
+        color: #CFCFCF;
+    }
+    i {
+        width: 30px;
+        margin-right: 5px;
+    }
+    .sidenav a:hover{
+        color:#f1f1f1;
+    }

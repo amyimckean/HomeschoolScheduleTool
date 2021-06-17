@@ -1,0 +1,25 @@
+{% extends 'HomeschoolTool/base.html' %}
+{% load render_table from django_tables2 %}
+{% load static %}
+{% block title %}
+Settings
+{% endblock %}
+
+{% block content %}
+<div  class="content">
+    <div class="main-text">
+        <h1>Settings</h1>
+    </div>
+    <ul>
+        <li>
+            <form action="/addSubject" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <label for="addSubject">Create a new class: </label>
+                <input id="addSubject" type="text" name="addSubject" >
+                <input type="submit" value="Add">
+            </form>
+        </li>
+    </ul>
+</div>
+{% endblock %}

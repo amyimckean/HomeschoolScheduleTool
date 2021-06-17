@@ -4,20 +4,24 @@
 <head>
     <title>{% block title %}Soren's Schedule{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
-    <style type="text/css">
-            pre {
-                background-color: #D8F0FF;
-                border: 1px solid #9BBBD5;
-                padding: 8px;
-            }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'HomeschoolTool/style.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
-
 <body>
-    <h1>Soren's Schedule</h1>
-    <div id="content" name="content">
-	{% block content %}
-	{% endblock %}
+	<nav class="sidenav">
+        <h2><i class="fas fa-apple-alt"></i>APPLE</h2>
+        <ul>
+            <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="/schedule"><i class="far fa-calendar-alt"></i>Schedule</a></li>
+            <li><a href="/settings"><i class="fas fa-tools"></i>Settings</a></li>
+        </ul>
+	</nav>
+    <div class="main">
+        <div class="header">Academic Planner for Parent-Led Education (APPLE)</div>
+	    {% block content %}
+	    {% endblock %}
     </div>
 </body>
 </html>
