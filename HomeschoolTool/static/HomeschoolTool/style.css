@@ -1,10 +1,20 @@
-    *{
+    * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         list-style: none;
         text-decoration: none;
         font-family: 'Roboto', sans-serif;
+    }
+    i {
+        width: 30px;
+        margin-right: 5px;
+    }
+    html{
+        width: 1020px;
+    }
+    input, option, select{
+        height:28px;
     }
     .main{
         top:0;
@@ -24,14 +34,13 @@
     }
     .content{
         height:100%;
-        padding: 50;
         margin-left:220px;
-        width: 600px;
         justify-content: center;
         align-items: center;
+        margin-right:20px;
     }
     .standardH1Text{
-        color: #111;
+        color: #232323;
         font-family: 'Helvetica Neue', sans-serif;
         font-size: 50px;
         font-weight: bold;
@@ -41,7 +50,7 @@
         justify-content: center;
     }
     .standardH2Text {
-        color: #111;
+        color: #232323;
         font-family: 'Open Sans',
         sans-serif;
         font-size: 30px;
@@ -59,19 +68,22 @@
         height:100%;
         width:200px;
         position: fixed;
-        z-index:1;
         top:0;
         left:0;
         border: 2px;
-        overflow-x: :hidden;
-        padding-top:20px;
+        padding-top:25px;
+        padding-left:0px;
         background-color: #232323;
+        z-index:1;
+    }
+    .sidenav ul{
+        padding:0px;
     }
     .sidenav li{
         padding: 15px;
         border-bottom: 1px solid #bdb8d7;
         border-bottom: 1px solid rgba(0,0,0,0.05);
-        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .sidenav li a {
         font-size:25px;
@@ -80,14 +92,133 @@
     }
     .sidenav h2 {
         text-transform: uppercase;
-        margin-left:20px;
-        margin-bottom: 30px;
+        margin-left:18px;
+        margin-bottom: 12px;
+        margin-top: 15px;
         color: #CFCFCF;
     }
-    i {
-        width: 30px;
-        margin-right: 5px;
+    .topborder {
+        border-top: 2px solid #bdb8d7;
     }
     .sidenav a:hover{
         color:#f1f1f1;
+    }
+    .topnav {
+        text-align:center;
+        width: 100%;
+        height:35px;
+    }
+    .topnav li {
+        display:inline-block;
+        color: #232323;
+        text-decoration: underline;
+        font-size: 17px;
+        margin:5px;
+    }
+    .topnav li:hover {
+        background-color: #ddd;
+        color: black;
+        text-align:center;
+    }
+    .topnav li.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+    .topBar{
+        margin-left:200px;
+        height: 55px;
+        padding: 10px;
+        padding-left:20px;
+        padding-right:30px;
+        border-bottom: 2px solid #232323;
+    }
+    .myButton {
+        box-shadow: 0px 1px 0px 0px #f0f7fa;
+        background:linear-gradient(to bottom, #b6afb8 5%, #3e4547 100%);
+        background-color:#b6afb8;
+        border-radius:6px;
+        border:1px solid #6e7980;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:15px;
+        font-weight:bold;
+        padding:1px 12px;
+        text-decoration:none;
+        text-shadow:0px -1px 0px #5b6178;
+        height: 30px;
+    }
+    .myButton:hover {
+        background:linear-gradient(to bottom, #3e4547 5%, #b6afb8 100%);
+        background-color:#3e4547;
+    }
+    .myButton:active {
+        position:relative;
+        top:1px;
+    }
+    .iconH3{
+        margin-left:-3px;
+        padding:0px;
+    }
+    .modal-backdrop {
+        z-index:`100`;
+    }
+        /* The switch - the box around the slider */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    .hide{
+        display:none;
     }

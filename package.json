@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@fullcalendar/core": "^5.8.0",
+    "@fullcalendar/daygrid": "^5.8.0",
+    "@fullcalendar/rrule": "^5.8.0",
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.2",
+    "fullcalendar": "^3.4.0",
+    "jquery": "^3.6.0"
+  }
+}

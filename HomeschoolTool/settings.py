@@ -28,6 +28,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/bower_components/'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'jquery-ui',
+    'bootstrap',
+    'fullcalendar#3.8.2'
+)
 
 # Application definition
 
@@ -40,6 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_tables2",
     'HomeschoolTool.apps.HomeschoolToolConfig',
+    'schedule',
+    'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -65,10 +82,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'djangobower.finders.BowerFinder',
+]
+
 
 WSGI_APPLICATION = 'HomeschoolTool.wsgi.application'
 
@@ -116,11 +141,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
