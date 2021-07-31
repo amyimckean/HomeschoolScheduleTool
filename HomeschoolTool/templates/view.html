@@ -1,0 +1,100 @@
+{% extends 'HomeschoolTool/base.html' %}
+{% load render_table from django_tables2 %}
+{% load static %}
+{% block title %}
+Schedule
+{% endblock %}
+
+{% block content %}
+<div class="topBar">
+    <h2><i class="fas fa-chalkboard-teacher"></i>Views</h2>
+    <nav class="topnav">
+        <ul>
+            <li id="parentsViewToggle">Parents</li>
+            <li id="teachersViewToggle">Teachers</li>
+        </ul>
+    </nav>
+</div>
+<br/>
+<div class="content">
+    <div id="parentsView"  style="display:none">
+        <div id="calendar"/>
+    </div>
+    <div id="teachersView"  style="display:none">
+        {% render_table table %}
+    </div>
+<br/>
+</div>
+<script>
+    window.onload = function(){
+        var page = sessionStorage.getItem('currentViewForm');
+        switchPage(page);
+    }
+
+    var parentToggle = document.getElementById('parentsViewToggle');
+    parentToggle.onclick = function(){
+        switchPage("parent");
+    };
+
+    var teacherToggle = document.getElementById('teachersViewToggle');
+    teacherToggle.onclick = function(){
+        switchPage("teacher");
+    };
+
+    function switchPage(page){
+        document.getElementById('parentsView').style.display = "none";
+        document.getElementById('teachersView').style.display = "none";
+        sessionStorage.setItem('currentViewForm', page);
+           switch(page){
+            case "parent":
+                document.getElementById('parentsView').style.display = "block";
+                loadCalendar();
+                break;
+            case "teacher":
+                document.getElementById('teachersView').style.display = "block";
+                break;
+            default:
+                document.getElementById('parentsView').style.display = "block";
+                break;
+        }
+    }
+
+
+    function loadCalendar(){
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: { center: 'timeGridWeek,timeGridDay,dayGridDay' },
+              titleFormat: {
+                month: 'numeric',
+                year: '2-digit',
+                day: 'numeric',
+            },
+            initialView: 'timeGridWeek',
+            timeZone: 'America/Mexico_City',
+            events: [
+                 {% for event in nonrecurringEvents %}
+                    {
+                        title: '{{ event.description }}',
+                        start: '{{ event.start|date:"Y-m-d" }}T{{ event.start|time:"H:i" }}',
+                        end: '{{ event.end|date:"Y-m-d" }}T{{ event.end|time:"H:i" }}',
+                        allDay: '{{ event.allDay }}',
+                    },
+                 {% endfor %}
+                 {% for event in recurringEvents %}
+                    {
+                        title: '{{ event.description }}',
+                        start: '{{ event.start }}',
+                        end: '{{ event.end }}',
+                        allDay: '{{ event.allDay }}',
+                        rrule: {
+                            freq: '{{event.reoccurType.recurrenceTypeName}}',
+                            until: '{{ event.reoccurEnd|date:"Y-m-d" }}T{{ event.reoccurEnd|time:"H:i" }}'
+                        }
+                    },
+                 {% endfor %}
+              ],
+        });
+        calendar.render();
+    };
+</script>
+{% endblock %}

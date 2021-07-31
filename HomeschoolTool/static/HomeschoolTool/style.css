@@ -7,11 +7,11 @@
         font-family: 'Roboto', sans-serif;
     }
     i {
-        width: 30px;
+        Height: 30px;
         margin-right: 5px;
     }
     html{
-        width: 1020px;
+        width: 100%;
     }
     input, option, select{
         height:28px;
@@ -20,16 +20,18 @@
         top:0;
         height:100%;
         width:100%;
+        min-width: 920px;
         position: fixed;
-        width: 920px;
         overflow: auto;
     }
     .header{
         padding: 5px;
+        min-width: 920px;
         background-color: #232323;
         color: #CFCFCF;
         top:0;
         margin-left:200px;
+        padding-right:10px;
         border-bottom: 1px solid #e0e4e8;
     }
     .content{
@@ -103,9 +105,22 @@
     .sidenav a:hover{
         color:#f1f1f1;
     }
+    .topBar{
+        text-align:left;
+        margin-left:200px;
+        height: 55px;
+        padding: 10px;
+        padding-left:20px;
+        padding-right:30px;
+        border-bottom: 2px solid #232323;
+    }
+    .topBar h2 {
+        display:inline-block;
+    }
     .topnav {
+        display:inline-block;
         text-align:center;
-        width: 100%;
+        width: 70%;
         height:35px;
     }
     .topnav li {
@@ -124,15 +139,15 @@
         background-color: #04AA6D;
         color: white;
     }
-    .topBar{
-        margin-left:200px;
-        height: 55px;
-        padding: 10px;
-        padding-left:20px;
-        padding-right:30px;
-        border-bottom: 2px solid #232323;
+    .hsField{
+        margin-top:10px;
+        margin-bottom:10px;
     }
-    .myButton {
+    .hsButton, .button-holder {
+        height: 30px;
+        padding:1px 3px;
+        margin-top:10px;
+        margin-bottom:10px;
         box-shadow: 0px 1px 0px 0px #f0f7fa;
         background:linear-gradient(to bottom, #b6afb8 5%, #3e4547 100%);
         background-color:#b6afb8;
@@ -141,19 +156,16 @@
         display:inline-block;
         cursor:pointer;
         color:#ffffff;
-        font-family:Arial;
         font-size:15px;
         font-weight:bold;
-        padding:1px 12px;
         text-decoration:none;
         text-shadow:0px -1px 0px #5b6178;
-        height: 30px;
     }
-    .myButton:hover {
+    .hsButton:hover {
         background:linear-gradient(to bottom, #3e4547 5%, #b6afb8 100%);
         background-color:#3e4547;
     }
-    .myButton:active {
+    .hsButton:active {
         position:relative;
         top:1px;
     }

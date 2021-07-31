@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+    <br/>
+    <form method = 'post'>
+        {% csrf_token %}
+        <h2><i class="fas fa-user-circle"></i>Create Account</h2><br/>
+        {{form.as_p}}
+        <input type = "submit" value = "Submit">
+    </form>
+</div>
+{% endblock %}
