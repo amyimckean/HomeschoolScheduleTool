@@ -9,7 +9,7 @@ urlpatterns = [
     path('', home),
     path('home', home, name=''),
     path('view', view),
-    path('settings', settings),
+    path('settings', settings, name='settings'),
     path('admin/', admin.site.urls),
     path('login/', loginView.as_view()),
     path('logout/', logoutReq),

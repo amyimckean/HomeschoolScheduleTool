@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from HomeschoolTool.forms import LoginForm, CreateUserForm
 
@@ -38,10 +39,12 @@ class loginView(generic.FormView):
 
         if user is not None and user.is_active:
             login(self.request, user)
+            self.request.session['status'] = "  You are now logged in as " + username + "."
             return super(loginView, self).form_valid(form)
         else:
             return self.form_invalid(form)
 
 def logoutReq(request):
     logout(request)
-    return render(request, "home.html")
+    status = "You are now logged out."
+    return render(request, "home.html", {"status": status, })

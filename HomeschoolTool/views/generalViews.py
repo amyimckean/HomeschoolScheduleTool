@@ -1,28 +1,24 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views import generic
-
 from HomeschoolTool.models import scheduledItem, subject, student, scheduleItemType, recurrenceType
 
 
 def view(request):
-    events = scheduledItem.objects.all()
-    recurringEvents = []
-    nonrecurringEvents = []
-    for event in events:
-        if event.reoccurType:
-            recurringEvents.append(event)
-        else:
-            nonrecurringEvents.append(event)
-    table = ScheduleTable(scheduledItem.objects.all())
-    return render(request, "view.html", {
-        "table": table,
-        "recurringEvents": recurringEvents,
-        "nonrecurringEvents": nonrecurringEvents,
-    })
+    students = student.objects.filter(parent=request.user)
+    allEvents = scheduledItem.objects.all()
+    if request.is_ajax and request.GET:
+        id = request.GET.get('id')
+        currentStudent = students.get(studentID=id)
+        eventFiltered = allEvents.filter(student=currentStudent)
+        data = {
+            'eventSource': getEventSource(eventFiltered)
+        }
+        return JsonResponse(data)
+    return render(request, "view.html", {"events": allEvents.filter(student=students.first().studentID), "students": students})
 
 
 def home(request):
-    return render(request, "home.html")
-
-
+    status = request.session.get('status')
+    request.session['status'] = ""
+    return render(request, "home.html", {"status": status, })

@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Schedule</h5>
+            <div class="modal-header">3
+                <h5 class="modal-title" id="scheduleModalLabel">Update Schedule</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -74,3 +74,35 @@
         </div>
     </div>
 </div>
+<script>
+function handleRecurrClick(cb) {
+    if(cb.checked){
+        $('#recurringEvents').show();
+    }
+    else{
+        $('#recurringEvents').hide();
+    }
+};
+function handleAllDayClick(cb) {
+    if(!cb.checked){
+        document.getElementById('allDay').style.visibility = "hidden";
+        document.getElementById('startTime').style.visibility = "hidden";
+        document.getElementById('endTime').style.visibility = "hidden";
+    }
+    else{
+        document.getElementById('allDay').style.visibility = "visible";
+        document.getElementById('startTime').style.visibility = "visible";
+        document.getElementById('endTime').style.visibility = "visible";
+    }
+}
+
+ document.getElementById('UpdateForm').onsubmit = function() {
+    var form = document.getElementById('UpdateForm');
+    var input = document.createElement('input');
+    input.setAttribute('name', 'selectStudent');
+    input.setAttribute('value', document.getElementById('selectStudent').value);
+    input.setAttribute('type', 'text')
+    form.appendChild(input);
+    form.submit();
+}
+</script>
