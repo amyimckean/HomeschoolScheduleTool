@@ -14,15 +14,17 @@
 </div>
 <script>
 
-function getCalendar(header, initial){
+function getCalendar(header, initial, url){
     loadCalendar(header, initial);
-    return calendar;
+    view = url;
+    return mainCalendar;
 }
 
-var calendar;
+var mainCalendar;
+var view;
 
 function loadCalendar(header, initial){
-  calendar = new FullCalendar.Calendar($('#calendarSettings')[0], {
+  mainCalendar = new FullCalendar.Calendar($('#calendarSettings')[0], {
     headerToolbar: { center:  header},
       titleFormat: {
         month: 'numeric',
@@ -62,25 +64,25 @@ var dateClickCustom = function(info)
 
 $('#selectStudent').on('change',function(){
     $.ajax({
-        url: "{% url 'settings' %}",
+        url: view,
         type: 'GET',
         cache: false,
-        data:{"id" : document.getElementById('selectStudent').value },
+        data:{"studentID" : document.getElementById('selectStudent').value },
         success: function (response) {
-            var eventSources = calendar.getEventSources();
+            var eventSources = mainCalendar.getEventSources();
             for(var i in eventSources)
             {
                 eventSources[i].remove();
             }
-            calendar.addEventSource(response.eventSource);
+            mainCalendar.addEventSource(response.eventSource);
         },
         complete: function () {
-            var eventSources = calendar.getEventSources();
+            var eventSources = mainCalendar.getEventSources();
                 for(var i in eventSources)
                 {
                     eventSources[i].refetch();
                 }
-                calendar.render();
+                mainCalendar.render();
         },
         error: function (response) {
             alert(response["responseJSON"]["error"]);

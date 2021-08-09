@@ -21,14 +21,17 @@ Schedule
         {% include 'fullCalendar.html' %}
     </div>
     <div id="teachersView"  style="display:none">
+        {% include 'fullCalendar.html' %}
     </div>
 <br/>
 </div>
 <script>
+
+var calendarView;
 window.onload = function(){
     var page = sessionStorage.getItem('currentViewForm');
     switchPage(page);
-    setHeader('timeGridWeek,timeGridDay,dayGridDay');
+    calendarView = getCalendar('timeGridWeek,timeGridDay,dayGridDay', 'timeGridWeek', 'views').render();
 }
 
 function switchPage(page){
@@ -38,16 +41,42 @@ function switchPage(page){
     switch(page){
         case "parent":
              $('#parentsView').show();
-             getCalendar('timeGridWeek,timeGridDay,dayGridDay', 'timeGridWeek').render();
             break;
         case "teacher":
              $('#teachersView').show();
             break;
         default:
              $('#parentsView').show();
-             getCalendar('timeGridWeek,timeGridDay,dayGridDay', 'timeGridWeek').render();
             break;
     }
+}
+
+function setView(page){
+    $.ajax({
+        url: "\views",
+        type: 'GET',
+        cache: false,
+        data: { "view" : sessionStorage.getItem('currentViewForm') },
+        success: function (response) {
+            var eventSources = calendarView.getEventSources();
+            for(var i in eventSources)
+            {
+                eventSources[i].remove();
+            }
+            calendarView.addEventSource(response.eventSource);
+        },
+        complete: function () {
+            var eventSources = calendarView.getEventSources();
+                for(var i in eventSources)
+                {
+                    eventSources[i].refetch();
+                }
+                calendarView.render();
+        },
+        error: function (response) {
+            alert(response["responseJSON"]["error"]);
+        }
+    })
 }
 </script>
 {% endblock %}

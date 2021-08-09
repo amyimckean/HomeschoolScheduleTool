@@ -1,98 +1,103 @@
 <!-- Modal -->
+{% load crispy_forms_tags %}
 <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">3
+            <div class="modal-header">
                 <h5 class="modal-title" id="scheduleModalLabel">Update Schedule</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="UpdateForm" action="/settings" method="post">
                     {% csrf_token %}
-                    {{ form }}
-                    <label for="createEvent">Title:   </label>
-                    <label for="addSubject" style="margin-left:275px;">Subject:   </label>
-                    <br/>
-                    <input id="createEvent"  name="createEvent" type="text" style="width:300px;" required>
-                    <select id="addSubject" name="addSubject" class="filter-selectbox" style="margin-left:10px;width:150px;" required>
-                    {% for subject in subjects %}
-                        <option value="{{ subject.subjectID }}">{{ subject.subjectName }}</option>
-                    {% endfor %} </select>
-                    </br></br>
-                    <label for="addType">I want to schedule a...  </label><br/>
-                    {% for item in scheduleItemTypes %}
-                    <label style="margin-right:45px;"><input id="addType" name="addType"
-                            class="form-check-input" type="radio" value="{{ item.scheduleItemTypeID }}"
-                            required>{{ item.ScheduleItemTypeName }}</label>
-                    {% endfor %}
-                    <br/><br/>
-                    <div style="text-align:left;">
-                        <label for="createStartDate" style="display:inline-block;" >Date:</label>
-                        <label for="setAllDay" style="margin-left:113;display:inline-block;">Time:</label>
-                        <label id="startTime" for="createStartTime" style="margin-left:27;display:inline-block;visibility:hidden;">Start Time:</label>
-                        <label id="endTime" for="createEndTime" style="margin-left:33;display:inline-block;visibility:hidden;">End Time:</label>
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldItemContainer">{{scheduleForm.description.label_tag}}<br/>{{scheduleForm.description}}</div>
+                        <div class="formFieldItemContainer">{{scheduleForm.subject.label_tag}}<br/>{{scheduleForm.subject}}</div>
                     </div>
-                    <div style="text-align:left;">
-                        <input type="date" id="createStartDate" name="createStartDate" style="width:135px;display:inline-block" required>
-                        <label class="switch" style="display:inline-block;margin-left:10px; position:absolute;">
-                            <input id="setAllDay" name="setAllDay" type="checkbox" onclick='handleAllDayClick(this);'>
-                             <span class="slider round"></span>
-                        </label>
-                        <div id="allDay" style="display:inline-block;margin-left:75px;visibility:hidden">
-                            <input type="time" id="createStartTime" name="createStartTime" style="margin-left:10px;width:100px;">
-                            <input type="time" id="createEndTime" name="createEndTime" style="margin-left:10px;width:100px;">
+                    <div class="formFieldRowContainer">
+                        {{scheduleForm.details.label_tag}}<br/>{{scheduleForm.details}}
+                    </div>
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldRowContainer">
+                        {{scheduleForm.type.label_tag}}<br/>{{scheduleForm.type}}
                         </div>
                     </div>
-                    <br/><br/>
-                    <label for="createDetails">Details:   </label>
-                    <br/>
-                    <textarea id="createDetails"  name="createDetails" type="text" style="width:460;height:56px;"></textarea>
-                    <br/><br/>
-                    <label>I want this to be recurring.... </label><br/>
-                    <label class="switch">
-                        <input type="checkbox" onclick='handleRecurrClick(this);'>
-                         <span class="slider round"></span>
-                    </label>
-                    <div id="recurringEvents" style="display:none;">
-                        <br/>
-                        <label>Frequency:</label><br/>
-                        {% for item in recurrenceTypes %}
-                        <label style="margin-right:40px;">
-                            <input class="form-check-input" id="createEndRecurrenceType" name="createEndRecurrenceType" type="radio"
-                                                             value="{{ item.recurrenceTypeID }}" >{{ item.recurrenceTypeName }}
-                        </label>
-                        {% endfor %}
-                        <br/><br/>
-                        <label for="createEndRecurrenceDate">End Recurrence:</label><br/>
-                        <input type="date" id="createEndRecurrenceDate" name="createEndRecurrenceDate" style="width:140px;">
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldItemContainer">{{scheduleForm.activity_date.label_tag}}<br/>{{scheduleForm.activity_date}}</div>
+                        <div class="formFieldItemContainer">
+                            <label>All Day:</label><br/>
+                            <label class="switch">
+                                <input id="allDay" name="allDay" type="checkbox" onclick='handleAllDayClick(this);'>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                         <div class="formFieldItemContainer" id="startTime">{{scheduleForm.start_time.label_tag}}<br/>{{scheduleForm.start_time}}</div>
+                         <div class="formFieldItemContainer" id="endTime">{{scheduleForm.end_time.label_tag}}<br/>{{scheduleForm.end_time}}</div>
+                    </div><br/>
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldItemContainer">
+                            <label>I want this to be recurring...</label><br/>
+                            <label class="switch">
+                                <input type="checkbox" onclick='handleRecurClick(this);'>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                         <div class="formFieldItemContainer" id="recurDate">{{scheduleForm.recurEnd.label_tag}}<br/>{{scheduleForm.recurEnd}}</div>
+                    </div>
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldItemContainer" id="recurType">
+                            {{scheduleForm.recurType.label_tag}}<br/>{{scheduleForm.recurType}}
+                        </div>
+                    </div><br/>
+                    <div class="formFieldRowContainer">
+                        <div class="formFieldItemContainer">
+                            <label>I have a teacher for this class...</label><br/>
+                            <label class="switch">
+                                <input type="checkbox" onclick='handleTeacherClick(this);'>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div><br/>
+                    <div class="formFieldRowContainer">
+                         <div class="formFieldItemContainer" id="teacherAssign">{{scheduleForm.teacher.label_tag}}<br/>{{scheduleForm.teacher}}</div>
+                        <div class="formFieldItemContainer" id="classAssign">{{scheduleForm.classT.label_tag}}<br/>{{scheduleForm.classT}}</div>
                     </div>
                     <br/>
-                    <br/>
-                    <input type="submit" value="Create" class="myButton">
+                     <input type="submit" value="Submit" class="hsButton">
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-function handleRecurrClick(cb) {
+function handleRecurClick(cb) {
     if(cb.checked){
-        $('#recurringEvents').show();
+        $('#recurDate').show();
+        $('#recurType').show();
     }
     else{
-        $('#recurringEvents').hide();
+        $('#recurDate').hide();
+        $('#recurType').hide();
+    }
+};
+function handleTeacherClick(cb) {
+    if(cb.checked){
+        $('#teacherAssign').show();
+        $('#classAssign').show();
+    }
+    else{
+        $('#teacherAssign').hide();
+        $('#classAssign').hide();
     }
 };
 function handleAllDayClick(cb) {
     if(!cb.checked){
-        document.getElementById('allDay').style.visibility = "hidden";
-        document.getElementById('startTime').style.visibility = "hidden";
-        document.getElementById('endTime').style.visibility = "hidden";
+        $('#startTime').hide();
+        $('#endTime').hide();
     }
     else{
-        document.getElementById('allDay').style.visibility = "visible";
-        document.getElementById('startTime').style.visibility = "visible";
-        document.getElementById('endTime').style.visibility = "visible";
+        $('#startTime').show();
+        $('#endTime').show();
     }
 }
 
@@ -102,6 +107,7 @@ function handleAllDayClick(cb) {
     input.setAttribute('name', 'selectStudent');
     input.setAttribute('value', document.getElementById('selectStudent').value);
     input.setAttribute('type', 'text')
+    alert(document.getElementById('selectStudent').value);
     form.appendChild(input);
     form.submit();
 }

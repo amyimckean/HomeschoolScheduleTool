@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fb85bf6-be82-4c28-bd97-b742effb59cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/HomeschoolTool/static/HomeschoolTool/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HomeschoolTool/fields.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HomeschoolTool/templates/settings/inputOptionHorizontal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HomeschoolTool/templates/settings/radioHorizontal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HomeschoolTool/views/viewHelper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomeschoolTool/static/HomeschoolTool/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/static/HomeschoolTool/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/settings/UpdateSchedule.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/settings/scheduleModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/fullCalendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/fullCalendar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/settings/scheduleModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/settings/scheduleModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/settings/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/settings/settings.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/view.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/view.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomeschoolTool/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/urls.py" afterDir="false" />
@@ -61,6 +67,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/HomeschoolTool/templates/HomeschoolTool" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -68,8 +75,8 @@
       <recent name="$PROJECT_DIR$/dev/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/HomeschoolTool/templates" />
       <recent name="$PROJECT_DIR$/HomeschoolTool/templates/settings" />
+      <recent name="$PROJECT_DIR$/HomeschoolTool/templates" />
       <recent name="$PROJECT_DIR$/HomeschoolTool/templates/login" />
       <recent name="$PROJECT_DIR$/HomeschoolTool/tests" />
       <recent name="$PROJECT_DIR$/HomeschoolTool/views" />
@@ -133,11 +140,6 @@
           <url>file://$PROJECT_DIR$/HomeschoolTool/tables.py</url>
           <line>15</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/HomeschoolTool/views/settingViews.py</url>
-          <line>122</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -84,7 +84,7 @@ Settings
                     break;
                 case "calendar":
                     $('#calendarContainer').show();
-                    getCalendar('dayGridMonth,timeGridWeek,timeGridDay', 'dayGridMonth').render();
+                    getCalendar('dayGridMonth,timeGridWeek,timeGridDay', 'dayGridMonth', '\settings').render();
                     break;
                 default:
                     $('#StudentForm').show();
@@ -94,9 +94,16 @@ Settings
 
         var dateClickCustom = function(info)
         {
-             $('#createStartDate').val(info.dateStr);
-             $('#createStartTime').val("12:00:00");
-             $('#createEndTime').val("13:00:00");
+             $('#id_activity_date').val(info.dateStr);
+             $('#id_start_time').val("12:00");
+             $('#id_end_time').val("13:00");
+             $('#startTime').hide();
+             $('#endTime').hide();
+             $('#recurDate').hide();
+             $('#recurType').hide();
+             $('#teacherAssign').hide();
+             $('#classAssign').hide();
+             $('#allDay').prop('checked', true);
              document.getElementById("modalButton").click();
         }
 

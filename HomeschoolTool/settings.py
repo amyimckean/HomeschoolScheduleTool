@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'schedule',
     'widget_tweaks',
     'crispy_forms',
+    'floppyforms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

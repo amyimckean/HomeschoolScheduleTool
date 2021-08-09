@@ -238,6 +238,30 @@
     .slider.round:before {
       border-radius: 50%;
     }
+    .formFieldRowContainer {
+        margin: 5px 0px;
+        display: inline-block;
+    }
+    .formFieldItemContainer{
+        float:left;
+        margin-right: 10px;
+    }
+    #id_subject{
+        width:110px;
+    }
+    select#id_teacher{
+        width:270px;
+    }
+    select#id_classT{
+        width:170px;
+    }
     .hide{
         display:none;
+    }
+    ul#id_type, ul#id_recurType{
+        padding:0px;
+    }
+    .radio-inline{
+        margin-right:10px;
+        vertical-align: top;
     }

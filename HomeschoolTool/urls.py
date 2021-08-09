@@ -8,7 +8,7 @@ from HomeschoolTool.views.generalViews import view, home
 urlpatterns = [
     path('', home),
     path('home', home, name=''),
-    path('view', view),
+    path('views', view),
     path('settings', settings, name='settings'),
     path('admin/', admin.site.urls),
     path('login/', loginView.as_view()),

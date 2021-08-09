@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import ListView
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from django.contrib import messages
