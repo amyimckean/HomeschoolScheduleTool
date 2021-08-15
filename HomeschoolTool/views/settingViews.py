@@ -5,82 +5,96 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.core import serializers
 from datetime import datetime
-from HomeschoolTool.views.viewHelper import getEventSource
-from HomeschoolTool.forms import scheduleItemForm
-from HomeschoolTool.models import scheduledItem, subject, student, scheduleItemType, recurrenceType
+from HomeschoolTool.views.viewHelper import *
+from HomeschoolTool.forms import *
+from HomeschoolTool.models import *
 
 
 def settings(request):
-    subjects = subject.objects.all()
-    scheduleItemTypes = scheduleItemType.objects.all()
-    recurrenceTypes = recurrenceType.objects.all()
-    students = student.objects.filter(parent=request.user)
+    students = student.objects.filter(parent=request.user) if any(student.objects.all()) else []
     allEvents = scheduledItem.objects.all()
-    form = scheduleItemForm()
-    last = allEvents.order_by('scheduledItemID').last()
-    id = 1 if last is None else last.scheduledItemID + 1
     if request.is_ajax and request.GET:
-        id = request.GET.get('studentID')
-        print(id)
-        currentStudent = students.get(studentID=id)
-        eventFiltered = allEvents.filter(student=currentStudent)
-        data = {
-            'eventSource': getEventSource(eventFiltered)
-        }
-        return JsonResponse(data)
+        if request.GET.get('studentID'):
+            return JsonResponse(studentUpdate(request, allEvents, students))
+        if request.GET.get('teacher'):
+            return JsonResponse(classUpdate(request))
 
     if request.method == "POST":
         postSubject(request)
         postStudent(request)
-        postEvent(request, students, id)
-    return render(request, "settings/settings.html", {"events": allEvents.filter(student=students.first().studentID),
-                                                      "scheduleItemTypes": scheduleItemTypes,
-                                                      "subjects": subjects,
-                                                      "recurrenceTypes": recurrenceTypes,
+        postClass(request)
+        postEvent(request, students)
+
+    if any(student.objects.all()):
+        allEvents = allEvents.filter(student=students.first().id)
+
+    status = request.session.get('status')
+    request.session['status'] = ''
+    return render(request, "settings/settings.html", {"events": allEvents,
                                                       "students": students,
-                                                      "scheduleForm": form})
+                                                      "subjectForm": subjectForm(),
+                                                      "studentForm": studentForm(),
+                                                      "classForm": classForm(),
+                                                      "status": status,
+                                                      "scheduleForm": scheduleItemForm()})
 
 
-def getCurrentStudentID(request, students):
-    res = 0
-    if request.POST.get("selectStudent") is not None:
-        res = request.POST.get("selectStudent")
-    elif students.count() > 0:
-        res = students.first().studentID
-    return res
+def studentUpdate(request, events, students):
+    currentStudent = students.get(id=request.GET.get('studentID'))
+    eventFiltered = events.filter(student=currentStudent)
+    data = {
+        'eventSource': getEventSource(eventFiltered)
+    }
+    return data
+
+
+def classUpdate(request):
+    print(request.GET.get('teacher'))
+    classes = teacherClass.objects.filter(teacher=request.GET.get('teacher'))
+    print(classes)
+    data = {
+        'classes': getClasses(classes)
+    }
+    return data
+
+
+def postClass(request):
+    if request.POST.get('className'):
+        form = classForm(data=request.POST)
+        print(form.errors)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.teacher = request.user
+            item.save()
+            request.session['status'] = "You have successfully saved a class!"
 
 
 def postStudent(request):
-    if request.POST.get('createStudentFirst') and request.POST.get('createStudentLast'):
-        item = subject()
-        studentLast = student.objects.all().order_by('studentID').last()
-        id = studentLast.subjectID + 1
-        item = {
-            'studentID': id,
-            'studentFirstName': request.POST.get("createStudentFirst"),
-            'studentLastName': request.POST.get("createStudentLast")
-        }
-        student.objects.create(**item)
+    if request.POST.get('firstName'):
+        form = studentForm(data=request.POST)
+        print(form.errors)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.parent = request.user
+            item.save()
+            request.session['status'] = "You have successfully created a student!"
 
 
 def postSubject(request):
-    if request.POST.get('createSubject'):
-        item = subject()
-        subjectLast = subject.objects.all().order_by('subjectID').last()
-        id = subjectLast.subjectID + 1
-        item = {
-            'subjectID': id,
-            'subjectName': request.POST.get("createSubject")
-        }
-        subject.objects.create(**item)
+    if request.POST.get('subjectName'):
+        form = subjectForm(data=request.POST)
+        print(form.errors)
+        if form.is_valid():
+            form.save(commit=True)
+            request.session['status'] = "You have successfully created a subject!"
 
 
-def postEvent(request, students, id):
+def postEvent(request, students):
     if request.POST.get('selectStudent'):
         form = scheduleItemForm(data=request.POST)
         print(form.errors)
         if form.is_valid():
             item = form.save(commit=False)
-            item.student = students.get(studentID=request.POST.get('selectStudent'))
-            item.scheduledItemID =  id
+            item.student = students.get(id=request.POST.get('selectStudent'))
             item.save()
+            request.session['status'] = "  You have successfully scheduled your activity!"

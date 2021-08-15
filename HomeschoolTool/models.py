@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 class subject(models.Model):
-    subjectID = models.AutoField(primary_key=True, default='')
     subjectName = models.CharField(max_length=50, default='')
 
     def __str__(self):
@@ -11,7 +10,6 @@ class subject(models.Model):
 
 
 class teacherClass(models.Model):
-    classID = models.AutoField(primary_key=True, default='')
     className = models.CharField(max_length=50, default='')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
@@ -20,17 +18,15 @@ class teacherClass(models.Model):
 
 
 class student(models.Model):
-    studentID = models.AutoField(primary_key=True, default='')
     parent = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    studentFirstName = models.CharField(max_length=50, default='')
-    studentLastName = models.CharField(max_length=50, default='')
+    firstName = models.CharField(max_length=50, default='')
+    lastName = models.CharField(max_length=50, default='')
 
     def __str__(self):
-        return '%s' % self.studentFirstName + " " + self.studentLastName
+        return '%s' % self.firstName + " " + self.lastName
 
 
 class scheduleItemType(models.Model):
-    scheduleItemTypeID = models.AutoField(primary_key=True, default='')
     ScheduleItemTypeName = models.CharField(max_length=50, default='')
 
     def __str__(self):
@@ -38,7 +34,6 @@ class scheduleItemType(models.Model):
 
 
 class recurrenceType(models.Model):
-    recurrenceTypeID = models.AutoField(primary_key=True, default='')
     recurrenceTypeName = models.CharField(max_length=50, default='')
 
     def __str__(self):
@@ -46,7 +41,6 @@ class recurrenceType(models.Model):
 
 
 class scheduledItem(models.Model):
-    scheduledItemID = models.AutoField(primary_key=True, default=1)
     student = models.ForeignKey(student, on_delete=models.CASCADE)
     subject = models.ForeignKey(subject, on_delete=models.CASCADE, default=0)
     type = models.ForeignKey(scheduleItemType, on_delete=models.CASCADE)
@@ -68,5 +62,3 @@ class completedItem(models.Model):
     item = models.ForeignKey(scheduledItem, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     completedDate = models.DateTimeField(auto_now_add=False, blank=True)
-
-

@@ -19,3 +19,11 @@ def getEventSource(events):
                              + ';UNTIL=' + recurEnd
         eventArr.append(event)
     return eventArr
+
+
+def getClasses(classes):
+    classArr = []
+    for c in classes:
+        classItem = {'className': c.className, 'id': c.id}
+        classArr.append(classItem)
+    return classArr

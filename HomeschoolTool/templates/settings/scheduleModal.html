@@ -79,7 +79,8 @@ function handleRecurClick(cb) {
         $('#recurDate').hide();
         $('#recurType').hide();
     }
-};
+}
+
 function handleTeacherClick(cb) {
     if(cb.checked){
         $('#teacherAssign').show();
@@ -89,9 +90,10 @@ function handleTeacherClick(cb) {
         $('#teacherAssign').hide();
         $('#classAssign').hide();
     }
-};
+}
+
 function handleAllDayClick(cb) {
-    if(!cb.checked){
+    if(cb.checked){
         $('#startTime').hide();
         $('#endTime').hide();
     }
@@ -107,8 +109,28 @@ function handleAllDayClick(cb) {
     input.setAttribute('name', 'selectStudent');
     input.setAttribute('value', document.getElementById('selectStudent').value);
     input.setAttribute('type', 'text')
-    alert(document.getElementById('selectStudent').value);
     form.appendChild(input);
     form.submit();
+}
+
+ document.getElementById('id_teacher').onchange = function() {
+    $.ajax({
+        url: '\settings',
+        type: 'GET',
+        cache: false,
+        data:{"teacher" : document.getElementById('id_teacher').value },
+        success: function (response) {
+            $('#id_classT').empty();
+
+            if(response.classes){
+                for (const val of response.classes) {
+                    $('#id_classT').append($(document.createElement('option')).prop({
+                        value: val.id,
+                        text: val.className
+                    }))
+                }
+            }
+        }
+    })
 }
 </script>

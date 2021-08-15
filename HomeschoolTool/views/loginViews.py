@@ -4,7 +4,6 @@ from django.views.generic import ListView
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from django.contrib import messages
-
 from HomeschoolTool.forms import LoginForm, CreateUserForm
 
 
@@ -33,6 +32,7 @@ class loginView(generic.FormView):
 
     def form_valid(self, form):
         username = form.cleaned_data['username']
+
         password = form.cleaned_data['password']
         user = authenticate(username=username, password=password)
 

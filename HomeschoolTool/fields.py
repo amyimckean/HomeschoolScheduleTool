@@ -1,4 +1,4 @@
-from django.forms import RadioSelect, Select
+from django.forms import RadioSelect, Select, ModelChoiceField
 
 
 class HorizontalRadioSelect(RadioSelect):
@@ -6,6 +6,7 @@ class HorizontalRadioSelect(RadioSelect):
     option_template_name = 'settings/inputOptionHorizontal.html'
 
 
-class TeacherSelect(Select):
+class TeacherSelect(ModelChoiceField):
     def label_from_instance(self, obj):
-        return "(" + obj.id + ") " + obj.first_name + " " + obj.last_name
+        return obj.first_name + " " + obj.last_name
+

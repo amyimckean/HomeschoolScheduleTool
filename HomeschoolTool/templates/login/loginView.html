@@ -17,9 +17,11 @@
     {% endif %}
   {% endif %}
     <form method = 'post'>
-        {% csrf_token %}
         <h2><i class="fas fa-sign-in-alt"></i>Login</h2>
-        {% crispy form %}
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Login" class="hsButton">
+        <a href="../createLogin" class="hsButton">Create New User</a>
     </form>
 
 </div>

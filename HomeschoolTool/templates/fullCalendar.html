@@ -4,8 +4,8 @@
     <label for="selectStudent">Select a student...   </label><br/>
     <select id="selectStudent" name="selectStudent" class="filter-selectbox" style="width:300px;" required>
     {% for student in students %}
-        <option value="{{ student.studentID }}">
-            {{ student.studentFirstName }} {{ student.studentLastName }}
+        <option value="{{ student.id }}">
+            {{ student.firstName }} {{ student.lastName }}
         </option>
     {% endfor %} </select>
 </form>
@@ -32,19 +32,19 @@ function loadCalendar(header, initial){
         day: 'numeric',
     },
     initialView: initial,
-    timeZone: 'local',
+    timeZone: 'UTC',
     events: [
          {% for event in events %}
             {
                 title: '{{ event.description }}',
                 description: '{{ event.details }}',
-                start: '{{ event.start|date:"Y-m-d" }}T{{ event.start|time:"H:i"}}',
-                end: '{{ event.end|date:"Y-m-d" }}T{{ event.end|time:"H:i"}}',
+                start: '{{ event.start|date:"Y-m-d" }}T{{ event.start|time:"H:i:s"}}',
+                end: '{{ event.end|date:"Y-m-d" }}T{{ event.end|time:"H:i:s"}} }}',
                 allDay: '{{ event.allDay }}',
-                {% if event.reoccurType %}
+                {% if event.recurType %}
                 rrule: {
-                    freq: '{{event.reoccurType.recurrenceTypeName}}',
-                    until: '{{ event.reoccurEnd|date:"Y-m-d" }}T{{ event.reoccurEnd|time:"H:i" }}'
+                    freq: '{{ event.recurType.recurrenceTypeName}}',
+                    until: '{{ event.recurEnd|date:"Y-m-d" }}T{{ event.recurEnd|time:"H:i:s" }}'
                 }
                 {% endif %}
             },
@@ -69,6 +69,7 @@ $('#selectStudent').on('change',function(){
         cache: false,
         data:{"studentID" : document.getElementById('selectStudent').value },
         success: function (response) {
+        alert(response.eventSource);
             var eventSources = mainCalendar.getEventSources();
             for(var i in eventSources)
             {
