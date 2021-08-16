@@ -21,18 +21,21 @@ Settings
 <div  class="content">
     <form id="StudentForm" action="/settings" method="post" style="display:none">
         <h2><i class="fas fa-user"></i>Students</h2>
+        <br/>
         {% csrf_token %}
         {{ studentForm|crispy }}
         <input type="submit" value="Create" class="hsButton">
     </form>
     <form id="SubjectsForm" action="/settings" method="post" style="display:none">
          <h2><i class="fas fa-book-open"></i>Subjects</h2>
+         <br/>
         {% csrf_token %}
         {{ subjectForm|crispy }}
         <input type="submit" value="Create" class="hsButton">
     </form>
     <form id="LessonsForm" action="/settings" method="post" style="display:none">
         <h2><i class="fas fa-clipboard"></i>Classes</h2>
+        <br/>
         {% csrf_token %}
         {{ classForm|crispy }}
         <input type="submit" value="Create" class="hsButton">
@@ -40,7 +43,7 @@ Settings
     <div id="calendarContainer" style="display:none">
         <h2><i class="fas fa-calendar-alt"></i>Schedules</h2>
         <br/>
-        {% include 'fullCalendar.html' %}
+        {% include 'parentCalendar.html' %}
       <!-- Extra large modal -->
         <button id="modalButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal" style="display:none">
             Test

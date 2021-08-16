@@ -12,10 +12,9 @@ from HomeschoolTool.models import *
 
 def settings(request):
     students = student.objects.filter(parent=request.user) if any(student.objects.all()) else []
-    allEvents = scheduledItem.objects.all()
     if request.is_ajax and request.GET:
         if request.GET.get('studentID'):
-            return JsonResponse(studentUpdate(request, allEvents, students))
+            return JsonResponse(studentUpdate(request, students))
         if request.GET.get('teacher'):
             return JsonResponse(classUpdate(request))
 
@@ -25,8 +24,9 @@ def settings(request):
         postClass(request)
         postEvent(request, students)
 
-    if any(student.objects.all()):
-        allEvents = allEvents.filter(student=students.first().id)
+    allEvents = []
+    if len(students) > 0:
+        allEvents = scheduledItem.objects.filter(student=students.first().id)
 
     status = request.session.get('status')
     request.session['status'] = ''
@@ -39,21 +39,19 @@ def settings(request):
                                                       "scheduleForm": scheduleItemForm()})
 
 
-def studentUpdate(request, events, students):
+def studentUpdate(request, students):
     currentStudent = students.get(id=request.GET.get('studentID'))
-    eventFiltered = events.filter(student=currentStudent)
+    eventFiltered = scheduledItem.objects.filter(student=currentStudent)
     data = {
-        'eventSource': getEventSource(eventFiltered)
+        'eventSource': serializeEvents(eventFiltered)
     }
     return data
 
 
 def classUpdate(request):
-    print(request.GET.get('teacher'))
     classes = teacherClass.objects.filter(teacher=request.GET.get('teacher'))
-    print(classes)
     data = {
-        'classes': getClasses(classes)
+        'classes': serializeClasses(classes)
     }
     return data
 

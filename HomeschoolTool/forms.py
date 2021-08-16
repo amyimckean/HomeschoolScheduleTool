@@ -87,7 +87,6 @@ class scheduleItemForm(forms.ModelForm):
     end_time = forms.TimeField(required=False)
     recurEnd = forms.DateField(required=False)
     teacher = TeacherSelect(queryset=User.objects.all(), to_field_name="id", required=False)
-    recurType = forms.ChoiceField(required=False)
 
     class Meta:
         model = scheduledItem
@@ -118,9 +117,7 @@ class scheduleItemForm(forms.ModelForm):
         model = super(scheduleItemForm, self).save(commit=False)
         model.start = datetime.combine(self.cleaned_data['activity_date'], self.cleaned_data['start_time'])
         model.end = datetime.combine(self.cleaned_data['activity_date'], self.cleaned_data['end_time'])
-        print(model.recurType)
-        if not model.recurType:
-            model.recurTYpe = None
+
         if commit:
             model.save()
         return model

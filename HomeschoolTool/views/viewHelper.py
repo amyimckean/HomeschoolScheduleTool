@@ -2,7 +2,7 @@ from HomeschoolTool.models import scheduledItem
 from datetime import datetime
 
 
-def getEventSource(events):
+def serializeEvents(events):
     eventArr = []
     for e in events:
         event = {'title': e.description, 'description': e.details}
@@ -21,9 +21,17 @@ def getEventSource(events):
     return eventArr
 
 
-def getClasses(classes):
+def serializeClasses(classes):
     classArr = []
     for c in classes:
         classItem = {'className': c.className, 'id': c.id}
         classArr.append(classItem)
     return classArr
+
+
+def serializeStudents(students):
+    studentArr = []
+    for s in students:
+        student = {'id': s.id, 'firstName': s.firstName, 'lastName': s.lastName}
+        studentArr.append(student)
+    return studentArr
