@@ -39,11 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomeschoolTool.apps.HomeschoolToolConfig',
-    "django_tables2",
-    'schedule',
-    'widget_tweaks',
     'crispy_forms',
     'floppyforms',
+    'ajax_datatable',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+<div id="LessonsForm" style="display:none" style="display:none">
+    <h2><i class="fas fa-clipboard"></i>Classes</h2>
+    <br/>
+    <form action="/settings" method="post" class="formLeft">
+        {% csrf_token %}
+        {{ classForm|crispy }}
+        <input type="submit" value="Create" class="hsButton">
+    </form>
+    <table class="tableStyle" style="width:400px;">
+        <thead>
+            <tr>
+              <th>Classes</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for class in classes %}
+            <tr>
+              <th> {{ class.className }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

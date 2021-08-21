@@ -2,8 +2,8 @@ from django.forms import RadioSelect, Select, ModelChoiceField
 
 
 class HorizontalRadioSelect(RadioSelect):
-    template_name = 'settings/radioHorizontal.html'
-    option_template_name = 'settings/inputOptionHorizontal.html'
+    template_name = 'utilities/radioHorizontal.html'
+    option_template_name = 'utilities/inputOptionHorizontal.html'
 
 
 class TeacherSelect(ModelChoiceField):

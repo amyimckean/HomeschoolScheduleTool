@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+<div id="StudentForm" style="display:none;">
+    <h2><i class="fas fa-user"></i>Students</h2>
+    <br/>
+    <form action="/settings" method="post" class="formLeft">
+        {% csrf_token %}
+        {{ studentForm|crispy }}
+        <input type="submit" value="Create" class="hsButton">
+    </form>
+    <table class="tableStyle" style="width:400px;">
+        <thead>
+            <tr>
+              <th>Students</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+              <th> {{ student.firstName }}&nbsp;{{ student.lastName }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

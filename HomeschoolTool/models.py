@@ -55,7 +55,7 @@ class scheduledItem(models.Model):
     recurType = models.ForeignKey(recurrenceType, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
     def __str__(self):
-        return '%s' % self.subject.subjectName + " " + self.description
+        return '%s' % self.description
 
 
 class completedItem(models.Model):

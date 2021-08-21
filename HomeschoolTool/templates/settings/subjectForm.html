@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+<div id="SubjectsForm" style="display:none" style="display:none">
+    <h2><i class="fas fa-book-open"></i>Subjects</h2>
+    <br/>
+    <form action="/settings" method="post" class="formLeft">
+        {% csrf_token %}
+        {{ subjectForm|crispy }}
+        <input type="submit" value="Create" class="hsButton">
+    </form>
+    <table class="tableStyle" style="width:400px;">
+        <thead>
+            <tr>
+              <th>Subjects</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for subject in subjects %}
+            <tr>
+              <th> {{ subject.subjectName }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

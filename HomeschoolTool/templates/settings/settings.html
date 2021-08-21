@@ -9,41 +9,21 @@ Settings
 <div class="topBar">
     <h2 style="float:left;"><i class="fas fa-tools"></i>Settings</h2>
     <nav class="topnav">
-        <ul>
-            <li id="StudentToggle" onclick="switchPage('student')" >Students</li>
-            <li id="SubjectToggle" onclick="switchPage('subject')">Subjects</li>
-            <li id="LessonToggle" onclick="switchPage('lesson')">Classes</li>
-            <li id="ScheduleToggle" onclick="switchPage('calendar')">Schedule</li>
-        </ul>
+        <button id="StudentToggle" class="tabButton tabButton-active" onclick="switchPage('student')" >Students</button>
+        <button id="SubjectToggle" class="tabButton" onclick="switchPage('subject')">Subjects</button>
+        <button id="LessonToggle" class="tabButton" onclick="switchPage('lesson')">Classes</button>
+        <button id="ScheduleToggle" class="tabButton" onclick="switchPage('calendar')">Schedule</button>
     </nav>
 </div>
 <br/>
-<div  class="content">
-    <form id="StudentForm" action="/settings" method="post" style="display:none">
-        <h2><i class="fas fa-user"></i>Students</h2>
-        <br/>
-        {% csrf_token %}
-        {{ studentForm|crispy }}
-        <input type="submit" value="Create" class="hsButton">
-    </form>
-    <form id="SubjectsForm" action="/settings" method="post" style="display:none">
-         <h2><i class="fas fa-book-open"></i>Subjects</h2>
-         <br/>
-        {% csrf_token %}
-        {{ subjectForm|crispy }}
-        <input type="submit" value="Create" class="hsButton">
-    </form>
-    <form id="LessonsForm" action="/settings" method="post" style="display:none">
-        <h2><i class="fas fa-clipboard"></i>Classes</h2>
-        <br/>
-        {% csrf_token %}
-        {{ classForm|crispy }}
-        <input type="submit" value="Create" class="hsButton">
-    </form>
+<div class="content">
+    {% include 'settings/studentForm.html' %}
+    {% include 'settings/subjectForm.html' %}
+    {% include 'settings/classForm.html' %}
     <div id="calendarContainer" style="display:none">
         <h2><i class="fas fa-calendar-alt"></i>Schedules</h2>
         <br/>
-        {% include 'parentCalendar.html' %}
+        {% include 'calendar/parentCalendar.html' %}
       <!-- Extra large modal -->
         <button id="modalButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal" style="display:none">
             Test
@@ -56,6 +36,10 @@ Settings
         });
 
         function switchPage(page){
+            $('#StudentToggle')[0].classList.remove('tabButton-active');
+            $('#SubjectToggle')[0].classList.remove('tabButton-active');
+            $('#LessonToggle')[0].classList.remove('tabButton-active');
+            $('#ScheduleToggle')[0].classList.remove('tabButton-active');
             $('#StudentForm').hide();
             $('#LessonsForm').hide();
             $('#SubjectsForm').hide();
@@ -64,19 +48,24 @@ Settings
                switch(page){
                 case "student":
                     $('#StudentForm').show();
+                    $('#StudentToggle')[0].classList.add('tabButton-active');
                     break;
                 case "lesson":
                     $('#LessonsForm').show();
+                    $('#LessonToggle')[0].classList.add('tabButton-active');
                     break;
                 case "subject":
                     $('#SubjectsForm').show();
+                    $('#SubjectToggle')[0].classList.add('tabButton-active');
                     break;
                 case "calendar":
                     $('#calendarContainer').show();
+                    $('#ScheduleToggle')[0].classList.add('tabButton-active');
                     getCalendar('dayGridMonth,timeGridWeek,timeGridDay', 'dayGridMonth', '\settings').render();
                     break;
                 default:
                     $('#StudentForm').show();
+                    $('#StudentToggle')[0].classList.add('tabButton-active');
                     break;
             }
         }

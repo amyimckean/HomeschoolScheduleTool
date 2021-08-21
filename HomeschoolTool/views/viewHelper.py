@@ -35,3 +35,11 @@ def serializeStudents(students):
         student = {'id': s.id, 'firstName': s.firstName, 'lastName': s.lastName}
         studentArr.append(student)
     return studentArr
+
+
+def serializeScheduledItems(scheduledItems):
+    items = []
+    for i in scheduledItems:
+        item = {'class': i.description}
+        items.append(item)
+    return items

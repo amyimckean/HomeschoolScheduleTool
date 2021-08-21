@@ -1,28 +1,28 @@
 <div>
-    <label for="selectStudent">Select a student...   </label><br/>
-    <select id="selectStudent" name="selectStudent" class="filter-selectbox" style="width:300px;" required>
-    {% for student in students %}
+    <label for="selectTeacherStudent">Select a student...   </label><br/>
+    <select id="selectTeacherStudent" name="selectStudent" class="filter-selectbox" style="width:300px;" required>
+    {% for student in teacherStudents %}
         <option value="{{ student.id }}">
             {{ student.firstName }} {{ student.lastName }}
         </option>
     {% endfor %} </select>
 </div>
 <br/><br/>
-<div id="calendarSettings"/>
+<div id="teacherCalendarSettings"/>
 </div>
 <script>
 
-function getCalendar(header, initial, url){
-    loadCalendar(header, initial);
+function getTeacherCalendar(header, initial, url){
+    loadTeacherCalendar(header, initial);
     view = url;
-    return parentCalendar;
+    return teacherCalendar;
 }
 
-var parentCalendar;
+var teacherCalendar;
 var view;
 
-function loadCalendar(header, initial){
-  parentCalendar = new FullCalendar.Calendar($('#calendarSettings')[0], {
+function loadTeacherCalendar(header, initial){
+  teacherCalendar = new FullCalendar.Calendar($('#teacherCalendarSettings')[0], {
     headerToolbar: { center:  header},
       titleFormat: {
         month: 'numeric',
@@ -33,7 +33,7 @@ function loadCalendar(header, initial){
     initialView: initial,
     timeZone: 'UTC',
     events: [
-         {% for event in events %}
+         {% for event in teacherEvents %}
             {
                 title: '{{ event.description }}',
                 description: '{{ event.details }}',
@@ -49,7 +49,6 @@ function loadCalendar(header, initial){
             },
          {% endfor %}
       ],
-    dateClick: function(info) {dateClickCustom(info)},
     eventDidMount: function(info) {
         $(info.el).tooltip({
             title: info.event.extendedProps.description ?? " ",
@@ -57,18 +56,14 @@ function loadCalendar(header, initial){
     },
   });
 }
-
-var dateClickCustom = function(info)
-{}
-
-$('#selectStudent').on('change',function(){
+$('#selectTeacherStudent').on('change',function(){
     $.ajax({
         url: view,
         type: 'GET',
         cache: false,
-        data:{"studentID" : document.getElementById('selectStudent').value },
+        data:{"studentID" : document.getElementById('selectTeacherStudent').value },
         success: function (response) {
-            updateSources(response.eventSource)
+            updateTeacherSources(response.eventSource)
         },
         error: function (response) {
             alert(response["responseJSON"]["error"]);
@@ -76,18 +71,18 @@ $('#selectStudent').on('change',function(){
     })
 });
 
-function updateSources(source){
-    var eventSources = parentCalendar.getEventSources();
+function updateTeacherSources(source){
+    var eventSources = teacherCalendar.getEventSources();
     for(var i in eventSources)
     {
         eventSources[i].remove();
     }
-    parentCalendar.addEventSource(source);
-    var eventSources = parentCalendar.getEventSources();
+    teacherCalendar.addEventSource(source);
+    var eventSources = teacherCalendar.getEventSources();
     for(var i in eventSources)
     {
         eventSources[i].refetch();
     }
-    parentCalendar.render();
+    teacherCalendar.render();
 }
  </script>

@@ -1,0 +1,12 @@
+<div>
+    {% for item in classStudents %}
+    <tr>
+      <th  style="width:150px;"> {{ item.student.firstName }}&nbsp;{{ item.student.lastName }}</th>
+        <th>
+        {% for class in item.classes %}
+           <li style="float:left;"><a href="">{{ class.class }} </a>&nbsp;&nbsp;&nbsp;&nbsp; </li>
+        {% endfor %}
+        </th>
+    </tr>
+    {% endfor %}
+</div>

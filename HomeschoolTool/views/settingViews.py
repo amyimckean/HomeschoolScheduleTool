@@ -33,8 +33,10 @@ def settings(request):
     return render(request, "settings/settings.html", {"events": allEvents,
                                                       "students": students,
                                                       "subjectForm": subjectForm(),
+                                                      "subjects": subject.objects.all(),
                                                       "studentForm": studentForm(),
                                                       "classForm": classForm(),
+                                                      "classes": teacherClass.objects.filter(teacher=request.user),
                                                       "status": status,
                                                       "scheduleForm": scheduleItemForm()})
 

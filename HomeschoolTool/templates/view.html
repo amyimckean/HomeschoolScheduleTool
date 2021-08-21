@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load render_table from django_tables2 %}
 {% load static %}
 {% block title %}
 Schedule
@@ -8,28 +7,57 @@ Schedule
 {% block content %}
 <div class="topBar">
     <h2><i class="fas fa-chalkboard-teacher"></i>Views</h2>
-    <nav class="topnav">
-        <ul>
-            <li id="parentToggle" onclick="switchPage('parent')" >Parents</li>
-            <li id="teacherToggle" onclick="switchPage('teacher')" >Teachers</li>
-        </ul>
-    </nav>
+    <div class="topnav">
+        <button id="parentToggle" class="tabButton tabButton-active" onclick="switchPage('parent')">Parents</button>
+        <button id="teacherToggle" class="tabButton"  onclick="switchPage('teacher')">Teachers</button>
+    </div>
 </div>
 <br/>
 <div class="content">
     <div id="parentsView"  style="display:none">
         <h2><i class="fas fa-child"></i>Parents</h2>
         <br/>
-        {% include 'parentCalendar.html' %}
+        {% include 'calendar/parentCalendar.html' %}
     </div>
     <div id="teachersView"  style="display:none">
         <h2><i class="fas fa-chalkboard-teacher"></i>Teachers</h2>
         <br/>
-        {% include 'teacherCalendar.html' %}
+        <div class="tabs">
+            <div class="tabNav">
+                <button id="tabButton1" class="tabButton tabButton-active"  onclick="switchTab('students')">Students</button>
+                <button id="tabButton2"  class="tabButton"  onclick="switchTab('classes')">Classes</button>
+            </div>
+            <div class="tabContent">
+                <div id="tabContentStudents" class="tabContentItem">
+                    {% include 'calendar/teacherCalendar.html' %}
+                </div>
+                <div id="tabContentClasses" class="tabContentItem">
+                    <div>
+                        <label>Select a class...   </label><br/>
+                        <select id="selectClass" name="selectClass" class="filter-selectbox" style="width:300px;" required>
+                        {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.className }}</option>
+                        {% endfor %}
+                        </select>
+                        <table id="studentTable" class="tableStyle" >
+                            <thead>
+                                <tr>
+                                  <th style="width:150px;">Student</th>
+                                  <th>Classes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% include 'studentTableBody.html' %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-<br/>
 </div>
 <script>
+
 
 var calendarView;
 window.onload = function(){
@@ -40,20 +68,63 @@ window.onload = function(){
 }
 
 function switchPage(page){
+    $('#parentToggle')[0].classList.remove('tabButton-active');
+    $('#teacherToggle')[0].classList.remove('tabButton-active');
     $('#parentsView').hide();
     $('#teachersView').hide();
     sessionStorage.setItem('currentViewForm', page);
     switch(page){
         case "parent":
              $('#parentsView').show();
+             $('#parentToggle')[0].classList.add('tabButton-active');
             break;
         case "teacher":
              $('#teachersView').show();
+             $('#teacherToggle')[0].classList.add('tabButton-active');
             break;
         default:
              $('#parentsView').show();
+             $('#parentToggle')[0].classList.add('tabButton-active');
             break;
     }
 }
+
+function switchTab(tab){
+    $('#tabButton1')[0].classList.remove('tabButton-active');
+    $('#tabButton2')[0].classList.remove('tabButton-active');
+    $('#tabContentStudents').hide();
+    $('#tabContentClasses').hide();
+    switch(tab){
+        case "students":
+             $('#tabContentStudents').show();
+             $('#tabButton1')[0].classList.add('tabButton-active');
+            break;
+        case "classes":
+             $('#tabContentClasses').show();
+             $('#tabButton2')[0].classList.add('tabButton-active');
+            break;
+        default:
+             $('#tabContentStudents').show();
+             $('#tabButton1')[0].classList.add('tabButton-active');
+            break;
+    }
+}
+
+ $('#selectClass').on('change',function(){
+    $.ajax({
+        url: '\\views',
+        type: 'GET',
+        cache: false,
+        data:{"class" : document.getElementById('selectClass').value },
+        success: function (data) {
+            alert($('#studentTableBody').html);
+            $("#studentTableBody").empty();
+            $('#studentTableBody').html(data);
+        },
+        error: function (data) {
+            alert(data);
+        }
+    });
+ });
 </script>
 {% endblock %}
