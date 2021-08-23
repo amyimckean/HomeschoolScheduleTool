@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3fb85bf6-be82-4c28-bd97-b742effb59cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HomeschoolTool/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HomeschoolTool/static/HomeschoolTool/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/static/HomeschoolTool/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/calendar/parentCalendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/calendar/parentCalendar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HomeschoolTool/templates/calendar/teacherCalendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/HomeschoolTool/templates/calendar/teacherCalendar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
