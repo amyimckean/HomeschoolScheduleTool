@@ -14,7 +14,6 @@ def view(request):
             return JsonResponse(studentUpdate(request))
         if request.GET.get('class'):
             classStudents = getStudentClasses(request.GET.get('class'))
-            print(classStudents)
             context = {
                 "classStudents": classStudents
             }

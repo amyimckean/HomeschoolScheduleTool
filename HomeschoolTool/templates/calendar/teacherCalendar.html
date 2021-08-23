@@ -1,6 +1,6 @@
 <div>
     <label for="selectTeacherStudent">Select a student...   </label><br/>
-    <select id="selectTeacherStudent" name="selectStudent" class="filter-selectbox" style="width:300px;" required>
+    <select id="selectTeacherStudent" name="selectTeacherStudent" class="filter-selectbox" style="width:300px;" required>
     {% for student in teacherStudents %}
         <option value="{{ student.id }}">
             {{ student.firstName }} {{ student.lastName }}
