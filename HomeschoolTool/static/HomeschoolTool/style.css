@@ -33,6 +33,7 @@
         background-color: #232323;
         color: #CFCFCF;
         border-bottom: 1px solid #e0e4e8;
+        margin-bottom:50px;
     }
     .statusLabel{
         margin-left: 215px;
@@ -50,6 +51,7 @@
         margin-right:20px;
         justify-content: center;
         align-items: center;
+        padding-bottom:50px;
     }
     .standardH1Text{
         color: #232323;
@@ -300,4 +302,7 @@
     .formRight{
         float:left;
         width:400px;
+    }
+    .calendar{
+        margin-bottom:20px;
     }

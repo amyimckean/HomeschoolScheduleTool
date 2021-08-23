@@ -12,6 +12,8 @@ def view(request):
     if request.is_ajax and request.GET:
         if request.GET.get('studentID'):
             return JsonResponse(studentUpdate(request))
+        if request.GET.get('teacherStudentID'):
+            return JsonResponse(teacherStudentUpdate(request))
         if request.GET.get('class'):
             classStudents = getStudentClasses(request.GET.get('class'))
             context = {
@@ -52,6 +54,15 @@ def view(request):
 def studentUpdate(request):
     currentStudent = student.objects.get(id=request.GET.get('studentID'))
     eventFiltered = scheduledItem.objects.filter(student=currentStudent)
+    data = {
+        'eventSource': serializeEvents(eventFiltered)
+    }
+    return data
+
+
+def teacherStudentUpdate(request):
+    currentStudent = student.objects.get(id=request.GET.get('teacherStudentID'))
+    eventFiltered = scheduledItem.objects.filter(student=currentStudent, teacher=request.user)
     data = {
         'eventSource': serializeEvents(eventFiltered)
     }

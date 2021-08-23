@@ -8,7 +8,7 @@
     {% endfor %} </select>
 </div>
 <br/><br/>
-<div id="teacherCalendarSettings"/>
+<div id="teacherCalendarSettings" class="calendar"/>
 </div>
 <script>
 
@@ -29,26 +29,30 @@ function loadTeacherCalendar(header, initial){
         year: '2-digit',
         day: 'numeric',
     },
-    height: 650,
     initialView: initial,
     timeZone: 'UTC',
-    events: [
-         {% for event in teacherEvents %}
-            {
-                title: '{{ event.description }}',
-                description: '{{ event.details }}',
-                start: '{{ event.start|date:"Y-m-d" }}T{{ event.start|time:"H:i:s"}}',
-                end: '{{ event.end|date:"Y-m-d" }}T{{ event.end|time:"H:i:s"}} }}',
-                allDay: '{{ event.allDay }}',
-                {% if event.recurType %}
-                rrule: {
-                    freq: '{{ event.recurType.recurrenceTypeName}}',
-                    until: '{{ event.recurEnd|date:"Y-m-d" }}T{{ event.recurEnd|time:"H:i:s" }}'
-                }
-                {% endif %}
-            },
-         {% endfor %}
-      ],
+    eventSources: [
+        {
+            events:
+            [
+                {% for event in teacherEvents %}
+                    {
+                        title: '{{ event.description }}',
+                        description: '{{ event.details }}',
+                        start: '{{ event.start|date:"Y-m-d" }}T{{ event.start|time:"H:i:s"}}',
+                        end: '{{ event.end|date:"Y-m-d" }}T{{ event.end|time:"H:i:s"}} }}',
+                        allDay: '{{ event.allDay }}',
+                        {% if event.recurType %}
+                        rrule: {
+                            freq: '{{ event.recurType.recurrenceTypeName}}',
+                            until: '{{ event.recurEnd|date:"Y-m-d" }}T{{ event.recurEnd|time:"H:i:s" }}'
+                        }
+                        {% endif %}
+                    },
+                {% endfor %}
+            ]
+        }
+    ],
     eventDidMount: function(info) {
         $(info.el).tooltip({
             title: info.event.extendedProps.description ?? " ",
@@ -61,7 +65,7 @@ $('#selectTeacherStudent').on('change',function(){
         url: view,
         type: 'GET',
         cache: false,
-        data:{"studentID" : document.getElementById('selectTeacherStudent').value },
+        data:{"teacherStudentID" : document.getElementById('selectTeacherStudent').value },
         success: function (response) {
             updateTeacherSources(response.eventSource)
         },
